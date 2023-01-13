@@ -65,4 +65,41 @@ def display_classifiers_confusion_matrix(
         plt.show()
         
 
+def plot_table(data_array: np.ndarray, columns: list, rows: list, title: str = ''):
+    # Get some pastel shades for the colors
+    colors = plt.cm.YlOrBr(np.linspace(0.3, 0.8, len(rows)))
+    n_rows = len(data_array)
+
+    index = np.arange(len(columns)) + 0.3
+    bar_width = 0.4
+
+    # Initialize the vertical-offset for the stacked bar chart.
+    y_offset = np.zeros(len(columns))
+
+    # Plot bars and create text labels for the table
+    cell_text = []
+    for row in range(n_rows):
+        plt.bar(index, data_array[row], bar_width, bottom=y_offset, color=colors[row])
+        y_offset = y_offset + data_array[row]
+        cell_text.append(['%0.3f' % x for x in y_offset])
+    # Reverse colors and text labels to display the last value at the top.
+    colors = colors[::-1]
+    cell_text.reverse()
+
+    # Add a table at the bottom of the axes
+    the_table = plt.table(cellText=cell_text,
+                        rowLabels=rows,
+                        rowColours=colors,
+                        colLabels=columns,
+                        loc='bottom')
+
+
+    plt.subplots_adjust(left=0.2, bottom=0.2)
+    plt.ylabel('{} [s]'.format(title))
+    plt.xticks([])
+    plt.grid()
+    plt.title(title)
+    plt.rcParams['figure.figsize'] = (8,6)
+    plt.show()
+
 
