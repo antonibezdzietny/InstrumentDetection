@@ -66,6 +66,7 @@ def plot_variance(var_exp, cum_var_exp):
     plt.bar(range(1,len(var_exp)+1), var_exp, alpha=0.5, align='center', label='Wariancja px')
     plt.step(range(1,len(cum_var_exp)+1), cum_var_exp, where='mid', label='Sumowana wariancja')
     plt.legend(loc='right')
+    plt.title('Wyjaśnienie zmienności danych przez kolejne składowe główne')
     plt.xlabel('Cechy')
     plt.ylabel('Wariancja')
     plt.show()
